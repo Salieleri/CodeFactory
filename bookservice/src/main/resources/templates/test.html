@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <button class="click">ccccc</button>
+        </td>
+        <td>
+            <div>
+                <label>ddddd</label>
+            </div>
+        </td>
+    </tr>
+</table>
+
+    <script type="text/javascript">
+        $(".click").click(function(){
+            var c = $(this).closest("tr");
+            var col1 = c.children("td").eq(1);
+            console.log(col1.prop("outerHTML"));
+        })
+    </script>
+</body>
+</html>

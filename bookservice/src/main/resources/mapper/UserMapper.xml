@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookservice.repository.UserRepository">
+    <select id="FindUserByusername" parameterType="String" resultMap="mess">
+        select username,password from user_info
+            <trim prefix="where" prefixOverrides="and|or">
+                username = #{username}
+            </trim>
+    </select>
+    <resultMap id="mess" type="LoginServiceModel">
+        <id property="username" column="username"></id>
+        <result property="password" column="password"></result>
+    </resultMap>
+    <select id="FindUserByemail" parameterType="String" resultType="LoginServiceModel">
+        select username,password from user_info
+            <trim prefix="where" prefixOverrides="and|or">
+                email = #{email}
+            </trim>
+    </select>
+    <select id="FindUserByusernameAndpassword" parameterType="String" resultType="LoginServiceModel">
+        select username,password from user_info
+            <trim prefix="where" prefixOverrides="and|or">
+                username = #{username} and password = #{password}
+            </trim>
+    </select>
+    <insert id="RegisterUser" parameterType="User">
+        insert into user_info(username,password,email,phonenum)
+        values(#{username},#{password},#{email},#{phonenum})
+    </insert>
+    <select id="GetUserByusername" parameterType="String" resultType="UserMessageModel">
+        select username,email,phonenum from user_info
+        <trim prefix="where" prefixOverrides="and|or">
+            username = #{username}
+        </trim>
+    </select>
+    <select id="FindPrivilegeByusername" resultType="int">
+        select privilege from user_info where username = #{username}
+    </select>
+    <update id="alteruserspassword" parameterType="String">
+        update user_info set password = #{password} where username = #{username}
+    </update>
+</mapper>

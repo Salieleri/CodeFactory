@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 141315
+    url: jdbc:mysql://localhost:3306/book?serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    mode: HTML
+    cache: false
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+  mvc:
+    static-path-pattern: /**
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.bookservice.entity

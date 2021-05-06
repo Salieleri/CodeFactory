@@ -1,0 +1,38 @@
+.username{
+    position: absolute;
+    width: 225px;
+    height: 26px;
+    z-index: 1;
+    top: 28%;
+    left: 65%;
+}
+.password{
+    position: absolute;
+    width: 225px;
+    height: 26px;
+    z-index: 1;
+    top: 35%;
+    left: 65%;
+}
+.err{
+    color: red;
+}
+.register{
+    position: absolute;
+    width: 225px;
+    height: 26px;
+    z-index: 1;
+    top: 52%;
+    left: 65%;
+}
+.button{
+    position: absolute;
+    width: 225px;
+    height: 26px;
+    z-index: 3;
+    top: 47%;
+    left: 65%;
+}
+body{
+    background-image: url("/img/login.png");
+}

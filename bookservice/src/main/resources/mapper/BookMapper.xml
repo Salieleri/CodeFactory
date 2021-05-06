@@ -1,0 +1,54 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookservice.repository.BookRepository">
+    <select id="GetRentalMessageByusername" resultType="RentalServiceModel">
+        select rental_info.booknum,bookname,rentaltime from book_info,rental_info,user_info
+            <trim prefix="where" prefixOverrides="and|or">
+                rental_info.username=#{param1}
+                and rental_info.username = user_info.username
+                and rental_info.booknum = book_info.booknum
+                order by rentaltime desc
+                limit #{param2},#{param3}
+            </trim>
+    </select>
+    <select id="GetRentableListBystatus" parameterType="Integer" resultType="Book">
+        select booknum,bookname,status from book_info limit #{rear},#{front}
+    </select>
+    <select id="GetRentbookBystatusandbooknum" parameterType="String" resultType="int">
+        select status from book_info where booknum = #{booknum} and status = 1
+    </select>
+    <update id="RentBook" parameterType="String">
+        update book_info set status = 0 where booknum = #{booknum}
+    </update>
+    <update id="ReturnBook" parameterType="String">
+        update book_info set status = 1 where booknum = #{booknum}
+    </update>
+    <delete id="SubRentIndex" parameterType="String">
+        delete from rental_info where booknum = #{booknum} and username = #{username}
+    </delete>
+    <insert id="AddRentIndex" parameterType="String">
+        insert into rental_info(username,booknum,rentaltime,isreturned)
+        values(#{username},#{booknum},date_format(now(),'%Y-%m-%d'),0)
+    </insert>
+    <select id="Getmaxbookindex" resultType="int">
+        select count(*) from book_info
+    </select>
+    <select id="Getmaxrentalmessageindex" resultType="int">
+        select count(*) from rental_info where username = #{username}
+    </select>
+    <select id="Getmaxreturnmessageindex" resultType="int">
+        select count(*) from rental_info where username = #{username} and isreturned = 0
+    </select>
+    <select id="GetReturnMessageByusername" resultType="RentalServiceModel">
+        select rental_info.booknum,bookname,rentaltime from book_info,rental_info,user_info
+        <trim prefix="where" prefixOverrides="and|or">
+            rental_info.username=#{param1}
+            and rental_info.username = user_info.username
+            and rental_info.booknum = book_info.booknum
+            and isreturned = 0
+            order by rentaltime desc
+            limit #{param2},#{param3}
+        </trim>
+    </select>
+</mapper>
